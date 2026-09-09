@@ -10,4 +10,4 @@ La gráfica, la previsualización y el control usan la misma curva y fuente. His
 
 Las RPM siguen siendo consignas estimadas a partir del porcentaje USB, no lecturas de tacómetro. La selección de temperatura es lógica del PC; no se inventan nuevos comandos HID.
 
-Validación: 111 pruebas pasan. Se comprueban selección CPU/GPU/máximo, tarjeta específica ausente, sensores inválidos, fallback combinado, sensor CPU explícito, todas las curvas, Manual térmico/fijo y perfiles antiguos. La confirmación física de los rangos extremos de RPM sigue pendiente.
+Validación: 121 pruebas pasan. Se comprueban selección CPU/GPU/máximo, tarjeta específica ausente, sensores inválidos, fallback combinado, sensor CPU explícito, todas las curvas, Manual térmico/fijo y perfiles antiguos. La confirmación física de los rangos extremos de RPM sigue pendiente.

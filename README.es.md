@@ -6,6 +6,8 @@ Aplicación nativa GTK4 para el **Llano V12 Ultra** en Linux, desarrollada en Pi
 
 **Versión 0.8.2 — soporte de hardware experimental.** Las órdenes HID proceden de capturas de MythCool en Windows. Las pruebas automáticas verifican los bytes y el manejo de estados; faltan validación física completa en Linux y calibración de los extremos de RPM. Las RPM mostradas son objetivos estimados, no lecturas de tacómetro. Proyecto independiente, sin afiliación oficial con Llano.
 
+**[Descargar v0.8.2](https://github.com/tal0nmallorca/llano-control/releases/tag/v0.8.2)** · Guardado automático al cerrar y aplicación de RPM/RGB al iniciar.
+
 ## Capturas de la aplicación
 
 Capturas reales en Hyprland con datos de la CPU y la NVIDIA GeForce RTX 5070 Ti Laptop GPU: carga, temperatura, frecuencia, potencia y VRAM. Las lecturas no disponibles aparecen como «—».
