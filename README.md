@@ -4,7 +4,7 @@ Native GTK4 application for the **Llano V12 Ultra** on Linux, developed on PikaO
 
 [Español](README.es.md) · [Protocol evidence](docs/PROTOCOL.md) · [Contributing](CONTRIBUTING.md)
 
-**Version 0.8.2 — experimental hardware support.** HID messages are based on captures from MythCool on Windows. Automated tests check the captured bytes and state handling; physical Linux validation and calibration at the lowest/highest RPM targets remain incomplete. Displayed RPM targets are estimates, not tachometer readings. This is an independent project, not official Llano software.
+**Version 0.8.3 — experimental hardware support.** HID messages are based on captures from MythCool on Windows. Automated tests check the captured bytes and state handling; physical Linux validation and calibration at the lowest/highest RPM targets remain incomplete. Displayed RPM targets are estimates, not tachometer readings. This is an independent project, not official Llano software.
 
 **[Download v0.8.2](https://github.com/tal0nmallorca/llano-control/releases/tag/v0.8.2)** · Save settings on close and apply RPM/RGB on startup.
 
@@ -98,7 +98,7 @@ python3 -m compileall -q llano_control
 ./llano-control telemetry
 ```
 
-The test suite currently contains **121 tests** and does not issue real USB commands. Minimal HID event fixtures are included; raw captures, machine logs and bottle backups are not.
+The test suite currently contains **123 tests** and does not issue real USB commands. Minimal HID event fixtures are included; raw captures, machine logs and bottle backups are not.
 
 `tools/capture-mythcool.py` and `tools/analyze-mythcool.py` use `tshark`/`dumpcap` and Linux usbmon for device-filtered captures. See [capture notes](docs/CAPTURE.md). The optional Soda/Bottles helper requires PyYAML and backs up a bottle before changing its runner; it is an experimental diagnostic, not an application dependency.
 

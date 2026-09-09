@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.3
+
+- Resolve saved CPU sensor paths after Linux renumbers hwmon devices at reboot.
+- Keep the same physical device and temperature channel; reject ambiguous replacements.
+- Restore dynamic fan curves when the previous CPU sensor path has moved.
+
 ## 0.8.2
 
 - Save current settings and the displayed GPU when hiding to tray or exiting, without redundant writes.

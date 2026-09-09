@@ -4,7 +4,7 @@ Aplicación nativa GTK4 para el **Llano V12 Ultra** en Linux, desarrollada en Pi
 
 [English](README.md) · [Protocolo](docs/PROTOCOL.md) · [Fuentes de temperatura](docs/TEMPERATURAS.md)
 
-**Versión 0.8.2 — soporte de hardware experimental.** Las órdenes HID proceden de capturas de MythCool en Windows. Las pruebas automáticas verifican los bytes y el manejo de estados; faltan validación física completa en Linux y calibración de los extremos de RPM. Las RPM mostradas son objetivos estimados, no lecturas de tacómetro. Proyecto independiente, sin afiliación oficial con Llano.
+**Versión 0.8.3 — soporte de hardware experimental.** Las órdenes HID proceden de capturas de MythCool en Windows. Las pruebas automáticas verifican los bytes y el manejo de estados; faltan validación física completa en Linux y calibración de los extremos de RPM. Las RPM mostradas son objetivos estimados, no lecturas de tacómetro. Proyecto independiente, sin afiliación oficial con Llano.
 
 **[Descargar v0.8.2](https://github.com/tal0nmallorca/llano-control/releases/tag/v0.8.2)** · Guardado automático al cerrar y aplicación de RPM/RGB al iniciar.
 
@@ -86,6 +86,6 @@ sudo apt install python3-yaml
 python3 -m unittest discover -s tests -v
 ```
 
-Hay 121 pruebas sin escrituras USB reales. Se incluyen datos HID mínimos para comparar mensajes; se excluyen capturas completas, registros del equipo y copias de Bottles. Las herramientas opcionales de captura requieren tshark/dumpcap; la prueba experimental de Soda requiere PyYAML. [Capturas](docs/CAPTURE.md) · [Contribuir](CONTRIBUTING.md).
+Hay 123 pruebas sin escrituras USB reales. Se incluyen datos HID mínimos para comparar mensajes; se excluyen capturas completas, registros del equipo y copias de Bottles. Las herramientas opcionales de captura requieren tshark/dumpcap; la prueba experimental de Soda requiere PyYAML. [Capturas](docs/CAPTURE.md) · [Contribuir](CONTRIBUTING.md).
 
 Código bajo licencia [MIT](LICENSE). La imagen del producto y las marcas quedan excluidas de esa licencia: [NOTICE](NOTICE.md).

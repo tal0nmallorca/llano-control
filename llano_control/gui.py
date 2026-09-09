@@ -15,7 +15,7 @@ from .core import load, save, validate, Preview, MODES, EFFECTS, rpm_step, AI_CU
 from .devices import inventory, sensors
 from .telemetry import Monitor
 from .fan import FanController
-from .thermal import control_temperature
+from .thermal import control_temperature, resolve_sensor_path
 from .power_position import load_position, save_position
 from . import ui_i18n
 from .i18n import t as tr, LANGUAGE, save_language, set_language
@@ -607,6 +607,7 @@ class App(Gtk.Application):
         name=self.profiles.get_active_id()
         if not name: return
         p=self.data['profiles'][name]; self.name.set_text(name); self.preview=Preview()
+        if p.get('sensor'):p['sensor']=str(resolve_sensor_path(p['sensor']))
         if p['color'] not in [row[1] for row in self.fields['color'].get_model()]:
             self.fields['color'].append(p['color'],p['color'])
         for k,w in self.fields.items():

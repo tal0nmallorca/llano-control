@@ -47,3 +47,29 @@ class ThermalTests(unittest.TestCase):
         p=data['profiles'][data['active']];p.update(temperature_source='both',control_gpu='GPU-uuid',manual_thermal=True);validate(data)
         p['temperature_source']='unknown'
         with self.assertRaises(ValueError):validate(data)
+
+    def test_renumbered_hwmon_drives_changing_targets(self):
+        with tempfile.TemporaryDirectory() as d:
+            device=Path(d)/'coretemp.0/hwmon'
+            current=device/'hwmon7/temp1_input';current.parent.mkdir(parents=True)
+            current.write_text('40000')
+            p=self.profile('both');p.update(mode='High',sensor=str(device/'hwmon6/temp1_input'))
+            controller=FanController(p)
+            sample={'cpu':{'temp':40},'gpus':[{'id':'nvidia','temp':35}]}
+            first=controller.plan(control_temperature(p,sample)[0],0)
+            controller.completed({'power':True})
+            current.write_text('80000')
+            second=controller.plan(control_temperature(p,sample)[0],6)
+            self.assertGreater(second['percent'],first['percent'])
+            self.assertFalse(second['take_control'])
+
+    def test_sensor_rebind_never_crosses_devices_or_ambiguous_channels(self):
+        from llano_control.thermal import resolve_sensor_path
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);old=root/'coretemp.0/hwmon/hwmon6/temp1_input'
+            other=root/'coretemp.1/hwmon/hwmon7/temp1_input';other.parent.mkdir(parents=True);other.write_text('95000')
+            self.assertEqual(resolve_sensor_path(str(old)),old)
+            resolve_sensor_path.cache_clear()
+            for i in (7,8):
+                p=old.parent.parent/f'hwmon{i}/temp1_input';p.parent.mkdir(parents=True);p.write_text('45000')
+            self.assertEqual(resolve_sensor_path(str(old)),old)
