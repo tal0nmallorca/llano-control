@@ -1,0 +1,21 @@
+window { background: #090711; color: #f0eafa; }
+.brand { font-size: 21px; font-weight: 900; letter-spacing: 2px; }
+.section { font-size: 16px; font-weight: 700; }
+.muted { color: #aea0c3; font-size: 12px; }
+.panel { background: #100d1c; border: 1px solid #352147; border-radius: 12px; padding: 18px; }
+.hero { background: linear-gradient(115deg, #7200d4, #ac0ced); border-color: #d04bff; }
+.hero .muted { color: #e9c7ff; }
+button { background: #20172f; color: #eee5fa; border: 1px solid #483057; border-radius: 7px; padding: 8px 12px; }
+button:hover { background: #372044; }
+button:checked { background: #620bad; border-color: #c236ff; box-shadow: 0 0 5px #7e16b0; }
+button:disabled { color: #85748e; background: #181220; }
+entry, combobox button, spinbutton { background: #1c152b; color: #f3e7ff; border-radius: 6px; }
+checkbutton check:checked { background: #a018eb; color: white; }
+scale highlight, progressbar progress { background: linear-gradient(to right, #7014cb, #d526ff); border: none; }
+scale trough, progressbar trough { background: #271a36; border-radius: 7px; min-height: 7px; }
+scale slider { background: #f2dfff; min-width: 13px; min-height: 13px; }
+.swatch { font-size: 23px; padding: 0 10px; }
+separator { background: #2c1e3c; margin-top: 6px; margin-bottom: 6px; }
+
+button.power-toggle { min-width: 24px; min-height: 24px; padding: 8px; border-radius: 20px; }
+button.power-toggle.powered-on { color: #c69bff; background: #352348; border-color: #9858d9; }

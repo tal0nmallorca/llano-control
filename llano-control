@@ -1,0 +1,4 @@
+#!/bin/sh
+APP_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+export PYTHONPATH="$APP_DIR${PYTHONPATH:+:$PYTHONPATH}"
+exec /usr/bin/python3 -m llano_control "$@"

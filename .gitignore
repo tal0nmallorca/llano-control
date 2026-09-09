@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.log
+*.pcap
+*.pcapng
+mythcool-capture-*/
+mythcool-soda-*/
+mythcool-usb-check-*.json
+intel-test-*/
+.github-auth/
+.env
+.env.*

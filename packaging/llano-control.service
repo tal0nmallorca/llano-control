@@ -1,0 +1,13 @@
+[Unit]
+Description=Llano Control GUI
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/share/llano-control/llano-control gui
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target

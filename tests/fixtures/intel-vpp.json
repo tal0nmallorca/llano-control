@@ -1,0 +1,72 @@
+[
+  {
+    "monotonic": 9386.169198363,
+    "frequency_and_rc6": {
+      "gt_act_freq_mhz": "0",
+      "gt_cur_freq_mhz": "1167",
+      "gt/gt0/rps_act_freq_mhz": "550",
+      "gt/gt1/rps_act_freq_mhz": "1200",
+      "gt/gt0/rc6_residency_ms": "9421014",
+      "gt/gt1/rc6_residency_ms": "9398095"
+    },
+    "clients": {
+      "524": {
+        "drm-driver": "i915",
+        "drm-client-id": "524",
+        "drm-pdev": "0000:00:02.0",
+        "drm-total-system0": "37740 KiB",
+        "drm-shared-system0": "0",
+        "drm-active-system0": "0",
+        "drm-resident-system0": "32352 KiB",
+        "drm-purgeable-system0": "148 KiB",
+        "drm-total-stolen-local0": "0",
+        "drm-shared-stolen-local0": "0",
+        "drm-active-stolen-local0": "0",
+        "drm-resident-stolen-local0": "0",
+        "drm-purgeable-stolen-local0": "0",
+        "drm-engine-render": "0 ns",
+        "drm-engine-copy": "0 ns",
+        "drm-engine-video": "0 ns",
+        "drm-engine-capacity-video": "2",
+        "drm-engine-video-enhance": "297737232 ns",
+        "drm-engine-compute": "0 ns"
+      }
+    },
+    "phase": "load"
+  },
+  {
+    "monotonic": 9387.170148863,
+    "frequency_and_rc6": {
+      "gt_act_freq_mhz": "0",
+      "gt_cur_freq_mhz": "1133",
+      "gt/gt0/rps_act_freq_mhz": "550",
+      "gt/gt1/rps_act_freq_mhz": "1150",
+      "gt/gt0/rc6_residency_ms": "9421973",
+      "gt/gt1/rc6_residency_ms": "9398734"
+    },
+    "clients": {
+      "524": {
+        "drm-driver": "i915",
+        "drm-client-id": "524",
+        "drm-pdev": "0000:00:02.0",
+        "drm-total-system0": "37740 KiB",
+        "drm-shared-system0": "0",
+        "drm-active-system0": "18396 KiB",
+        "drm-resident-system0": "32352 KiB",
+        "drm-purgeable-system0": "148 KiB",
+        "drm-total-stolen-local0": "0",
+        "drm-shared-stolen-local0": "0",
+        "drm-active-stolen-local0": "0",
+        "drm-resident-stolen-local0": "0",
+        "drm-purgeable-stolen-local0": "0",
+        "drm-engine-render": "0 ns",
+        "drm-engine-copy": "0 ns",
+        "drm-engine-video": "0 ns",
+        "drm-engine-capacity-video": "2",
+        "drm-engine-video-enhance": "631184060 ns",
+        "drm-engine-compute": "0 ns"
+      }
+    },
+    "phase": "load"
+  }
+]

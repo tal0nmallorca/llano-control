@@ -1,0 +1,4 @@
+# OPTIONAL. Install only after confirming the candidate identity on your unit.
+# This grants the active local session access to these HID nodes (including writes).
+# Never grant access to all hidraw devices.
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="374a", ATTRS{idProduct}=="b101", TAG+="uaccess"

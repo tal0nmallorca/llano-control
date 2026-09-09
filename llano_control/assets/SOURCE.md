@@ -1,0 +1,1 @@
+The embedded image in ../product_image.py is an AI-assisted edit of a Llano V12 Ultra product photograph supplied by the project author. It is not covered by the MIT code license. See ../../NOTICE.md. No external image is loaded at runtime.
