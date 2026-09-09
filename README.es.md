@@ -8,7 +8,7 @@ Aplicación nativa GTK4 para el **Llano V12 Ultra** en Linux, desarrollada en Pi
 
 ## Capturas de la aplicación
 
-Capturas reales en Hyprland con sensores del equipo. La vista muestra ajustes de ejemplo sin aplicarlos al cooler; las lecturas no disponibles aparecen como «—».
+Capturas reales en Hyprland con datos de la CPU y la NVIDIA GeForce RTX 5070 Ti Laptop GPU: carga, temperatura, frecuencia, potencia y VRAM. Las lecturas no disponibles aparecen como «—».
 
 | Español | English |
 | --- | --- |

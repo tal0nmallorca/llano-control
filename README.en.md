@@ -8,7 +8,7 @@ Native GTK4 application for the **Llano V12 Ultra** on Linux, developed on PikaO
 
 ## Screenshots
 
-Actual application captures on Hyprland with live system sensors. Example settings are shown without applying them to the cooler; unavailable readings appear as “—”.
+Actual application captures on Hyprland with live CPU and NVIDIA GeForce RTX 5070 Ti Laptop GPU telemetry: load, temperature, frequency, power and VRAM. Unavailable readings appear as “—”.
 
 | English | Español |
 | --- | --- |
