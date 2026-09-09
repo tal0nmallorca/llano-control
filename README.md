@@ -6,6 +6,16 @@ Native GTK4 application for the **Llano V12 Ultra** on Linux, developed on PikaO
 
 **Version 0.8.1 — experimental hardware support.** HID messages are based on captures from MythCool on Windows. Automated tests check the captured bytes and state handling; physical Linux validation and calibration at the lowest/highest RPM targets remain incomplete. Displayed RPM targets are estimates, not tachometer readings. This is an independent project, not official Llano software.
 
+## Screenshots
+
+Actual application captures on Hyprland with live system sensors. Example settings are shown without applying them to the cooler; unavailable readings appear as “—”.
+
+| English | Español |
+| --- | --- |
+| [![Llano Control in English](docs/screenshots/llano-control-en.png)](docs/screenshots/llano-control-en.png) | [![Llano Control in Spanish](docs/screenshots/llano-control-es.png)](docs/screenshots/llano-control-es.png) |
+
+Click either image to view it at full size.
+
 ## Features
 
 - RGB power, four effects, five preset colors, brightness 0–255 and animation speed 0–3.
