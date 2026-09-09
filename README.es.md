@@ -12,7 +12,7 @@ Capturas reales en Hyprland con datos de la CPU y la NVIDIA GeForce RTX 5070 Ti 
 
 | Español | English |
 | --- | --- |
-| [![Llano Control en español](docs/screenshots/llano-control-es.png)](docs/screenshots/llano-control-es.png) | [![Llano Control in English](docs/screenshots/llano-control-en.png)](docs/screenshots/llano-control-en.png) |
+| [![Llano Control en español](docs/screenshots/llano-control-nvidia-es.png)](docs/screenshots/llano-control-nvidia-es.png) | [![Llano Control in English](docs/screenshots/llano-control-nvidia-en.png)](docs/screenshots/llano-control-nvidia-en.png) |
 
 Pulsa una imagen para verla a tamaño completo.
 

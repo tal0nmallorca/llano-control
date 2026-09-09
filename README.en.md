@@ -12,7 +12,7 @@ Actual application captures on Hyprland with live CPU and NVIDIA GeForce RTX 507
 
 | English | Español |
 | --- | --- |
-| [![Llano Control in English](docs/screenshots/llano-control-en.png)](docs/screenshots/llano-control-en.png) | [![Llano Control in Spanish](docs/screenshots/llano-control-es.png)](docs/screenshots/llano-control-es.png) |
+| [![Llano Control in English](docs/screenshots/llano-control-nvidia-en.png)](docs/screenshots/llano-control-nvidia-en.png) | [![Llano Control in Spanish](docs/screenshots/llano-control-nvidia-es.png)](docs/screenshots/llano-control-nvidia-es.png) |
 
 Click either image to view it at full size.
 
