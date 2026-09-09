@@ -23,7 +23,7 @@ def main():
     show=Gtk.MenuItem(label=t('Abrir Llano Control')); show.connect('activate',lambda *_: emit('show')); menu.append(show)
     menu.append(Gtk.SeparatorMenuItem())
     rows=[]
-    for label in ('CPU: — °C','GPU: — °C','V12 Ultra: RPM no disponibles'):
+    for label in ('CPU: — °C','GPU: — °C'):
         item=Gtk.MenuItem(label=t(label)); item.set_sensitive(False); menu.append(item); rows.append(item)
     menu.append(Gtk.SeparatorMenuItem())
     quit_item=Gtk.MenuItem(label=t('Salir')); quit_item.connect('activate',lambda *_: emit('quit')); menu.append(quit_item)
@@ -45,8 +45,6 @@ def main():
             return '—' if value is None else str(round(value))
         set_label(rows[0],'CPU: '+display(cpu)+' °C')
         set_label(rows[1],'GPU: '+display(gpu)+' °C · '+t(data.get('gpu_name','No disponible')))
-        # No physical RPM source exists yet: never substitute the requested setpoint.
-        set_label(rows[2],t('V12 Ultra: RPM no disponibles'))
         text='CPU '+display(cpu)+'° · GPU '+display(gpu)+'° · V12 — RPM'
         if text!=last_indicator[0]:
             indicator.set_label(text,'CPU 100° · GPU 100° · V12 2800 RPM')
