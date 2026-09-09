@@ -4,7 +4,7 @@ Aplicación nativa GTK4 para el **Llano V12 Ultra** en Linux, desarrollada en Pi
 
 [English](README.md) · [Protocolo](docs/PROTOCOL.md) · [Fuentes de temperatura](docs/TEMPERATURAS.md)
 
-**Versión 0.8.1 — soporte de hardware experimental.** Las órdenes HID proceden de capturas de MythCool en Windows. Las pruebas automáticas verifican los bytes y el manejo de estados; faltan validación física completa en Linux y calibración de los extremos de RPM. Las RPM mostradas son objetivos estimados, no lecturas de tacómetro. Proyecto independiente, sin afiliación oficial con Llano.
+**Versión 0.8.2 — soporte de hardware experimental.** Las órdenes HID proceden de capturas de MythCool en Windows. Las pruebas automáticas verifican los bytes y el manejo de estados; faltan validación física completa en Linux y calibración de los extremos de RPM. Las RPM mostradas son objetivos estimados, no lecturas de tacómetro. Proyecto independiente, sin afiliación oficial con Llano.
 
 ## Capturas de la aplicación
 
@@ -71,9 +71,9 @@ Desconecta y vuelve a conectar el cable USB. Ejecuta la aplicación con tu usuar
 
 Cierra MythCool antes de aplicar ajustes. Elige fuente de temperatura, GPU y modo, y pulsa **Aplicar modo y RPM**. En CPU + GPU se usa la mayor lectura disponible; si una falta, el estado indica cuál se está usando. GPU exclusiva se pausa si su tarjeta no tiene temperatura.
 
-**Aplicar RGB** conserva ventilador y encendido. **Guardar** conserva el perfil, sin aplicarlo. El interruptor general pausa la curva; tras encender pulsa Aplicar modo para reanudarla. **Detener control automático** conserva la última velocidad.
+**Aplicar RGB** conserva ventilador y encendido. **Guardar** conserva el perfil, sin aplicarlo inmediatamente. Los cambios también se guardan al minimizar a bandeja o salir; si no hay cambios, no se vuelve a escribir el archivo. El interruptor general pausa la curva; tras encender pulsa Aplicar modo para reanudarla. **Detener control automático** conserva la última velocidad.
 
-El control activo funciona también en bandeja, como máximo cada cinco segundos, y evita reescribir consignas iguales. El mando físico, apagado, pérdida del sensor o errores USB pausan el control sin reintentos continuos. Al abrir la aplicación se restauran los ajustes, pero no se aplica automáticamente una curva ni se enciende el cooler.
+El control activo funciona también en bandeja, como máximo cada cinco segundos, y evita reescribir consignas iguales. El mando físico, apagado, pérdida del sensor o errores USB pausan el control sin reintentos continuos. Al iniciar se aplica el perfil de RPM guardado tras la primera lectura de sensores y después el RGB. Se respeta la solicitud de encendido del perfil. Cambiar de perfil con la aplicación abierta sigue requiriendo Aplicar.
 
 Perfiles, idioma y posición confirmada se guardan en `~/.config/llano-control/`, respetando `XDG_CONFIG_HOME`. La imagen está incrustada; no se descarga al iniciar.
 
@@ -84,6 +84,6 @@ sudo apt install python3-yaml
 python3 -m unittest discover -s tests -v
 ```
 
-Hay 111 pruebas sin escrituras USB reales. Se incluyen datos HID mínimos para comparar mensajes; se excluyen capturas completas, registros del equipo y copias de Bottles. Las herramientas opcionales de captura requieren tshark/dumpcap; la prueba experimental de Soda requiere PyYAML. [Capturas](docs/CAPTURE.md) · [Contribuir](CONTRIBUTING.md).
+Hay 121 pruebas sin escrituras USB reales. Se incluyen datos HID mínimos para comparar mensajes; se excluyen capturas completas, registros del equipo y copias de Bottles. Las herramientas opcionales de captura requieren tshark/dumpcap; la prueba experimental de Soda requiere PyYAML. [Capturas](docs/CAPTURE.md) · [Contribuir](CONTRIBUTING.md).
 
 Código bajo licencia [MIT](LICENSE). La imagen del producto y las marcas quedan excluidas de esa licencia: [NOTICE](NOTICE.md).

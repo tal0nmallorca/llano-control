@@ -4,7 +4,7 @@ Native GTK4 application for the **Llano V12 Ultra** on Linux, developed on PikaO
 
 [Español](README.es.md) · [Protocol evidence](docs/PROTOCOL.md) · [Contributing](CONTRIBUTING.md)
 
-**Version 0.8.1 — experimental hardware support.** HID messages are based on captures from MythCool on Windows. Automated tests check the captured bytes and state handling; physical Linux validation and calibration at the lowest/highest RPM targets remain incomplete. Displayed RPM targets are estimates, not tachometer readings. This is an independent project, not official Llano software.
+**Version 0.8.2 — experimental hardware support.** HID messages are based on captures from MythCool on Windows. Automated tests check the captured bytes and state handling; physical Linux validation and calibration at the lowest/highest RPM targets remain incomplete. Displayed RPM targets are estimates, not tachometer readings. This is an independent project, not official Llano software.
 
 ## Screenshots
 
@@ -79,9 +79,9 @@ Disconnect and reconnect the USB data cable. The rule grants the active local se
 1. Close MythCool or another controller before applying settings.
 2. Select the temperature source and GPU, then choose a mode. Click **Apply mode and RPM** to activate a snapshot of the current profile.
 3. For combined CPU/GPU control, the highest available temperature is used. If one source is missing, the remaining source is identified in the status. GPU-only control pauses if its selected source is unavailable.
-4. **Apply RGB** changes lighting while preserving fan/power settings. **Save** stores a profile without applying it.
+4. **Apply RGB** changes lighting while preserving fan/power settings. **Save** stores a profile without applying it immediately. Current edits are also saved automatically when hiding to the tray or exiting; unchanged settings are not rewritten.
 5. The power switch controls fan, lights and display. It pauses the local fan curve; click Apply mode to resume it after powering on.
-6. Enable **Start at login** if desired. Loading the app or a profile does not automatically take control of the fan.
+6. Enable **Start at login** if desired. On startup the saved RPM profile is applied after the first sensor sample, followed by RGB once the USB operation finishes. The saved profile controls whether power is requested. Loading a different profile while running still requires Apply.
 
 Active fan control runs at most once every five seconds, including in the tray, and avoids rewriting unchanged targets. Using the physical knob, powering off, losing the required temperature or encountering a USB error pauses control without repeated retries. Stop automatic control leaves the last speed in place.
 
@@ -96,7 +96,7 @@ python3 -m compileall -q llano_control
 ./llano-control telemetry
 ```
 
-The test suite currently contains **111 tests** and does not issue real USB commands. Minimal HID event fixtures are included; raw captures, machine logs and bottle backups are not.
+The test suite currently contains **121 tests** and does not issue real USB commands. Minimal HID event fixtures are included; raw captures, machine logs and bottle backups are not.
 
 `tools/capture-mythcool.py` and `tools/analyze-mythcool.py` use `tshark`/`dumpcap` and Linux usbmon for device-filtered captures. See [capture notes](docs/CAPTURE.md). The optional Soda/Bottles helper requires PyYAML and backs up a bottle before changing its runner; it is an experimental diagnostic, not an application dependency.
 

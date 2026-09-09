@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 import tempfile
 
-EN = {'Minimizar a bandeja': 'Minimize to tray',
+EN = {'No se pudieron guardar los ajustes: ': 'Could not save settings: ','Minimizar a bandeja': 'Minimize to tray',
  'Salir': 'Quit',
  'Buscando conexión USB…': 'Looking for USB connection…',
  'VID 374A    ·    PID B101    ·    Revisión por confirmar': 'VID 374A    ·    PID B101    ·    Revision '

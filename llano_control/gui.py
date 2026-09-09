@@ -55,7 +55,8 @@ class App(Gtk.Application):
     def on_activate(self, app):
         if hasattr(self, 'win'): self.win.present(); return
         self.data=load(); self.preview=Preview(); self.monitor=Monitor(); self.busy=False; self.closed=False
-        self.latest=None; self.gpu_id=None
+        self.latest=None; self.gpu_id=self.data.get("display_gpu")
+        self.startup_apply_pending=True; self.startup_rgb_pending=False
         self.fan_controller=None; self.fan_busy=False; self.rgb_busy=False; self.power_busy=False
         self.fan_explicit=False;self.pending_hardware_action=None
         self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix="llano-sensors")
@@ -454,6 +455,9 @@ class App(Gtk.Application):
         interval=1 if self.win.get_visible() else 2
         delay=max(100,round(1000*(interval-(time.monotonic()-self.sample_started))))
         self.timer=GLib.timeout_add(delay,self.tick)
+        if 'error' not in sample:
+            self.latest=sample
+            App.apply_saved_on_startup(self)
         self.drive_fan(sample)
         if 'error' in sample:
             self.latest=None
@@ -563,6 +567,7 @@ class App(Gtk.Application):
         except (OSError,ValueError): pass
 
     def hide_to_tray(self,*_):
+        App.persist_current(self)
         if getattr(self,'tray_connected',False): self.win.set_visible(False)
         else:
             self.message.set_text(tr('No hay bandeja disponible. En Hyprland activa el módulo tray de Waybar. Dependencia: gir1.2-ayatanaappindicator3-0.1.'))
@@ -572,6 +577,7 @@ class App(Gtk.Application):
         return True
 
     def cleanup_tray(self,*_):
+        App.persist_current(self)
         self.closed=True
         if getattr(self,"fan_controller",None):self.fan_controller.active=False
         if getattr(self,'timer',None): GLib.source_remove(self.timer)
@@ -637,6 +643,35 @@ class App(Gtk.Application):
         name=self.name.get_text().strip()
         validate({'version':1,'active':name,'profiles':{name:p}})
         return name,p
+
+    def persist_current(self):
+        # Saving does not refresh widgets or disturb an active controller snapshot.
+        if not hasattr(self,'fields'): return True
+        try:
+            name,profile=self.collect()
+            updated=copy.deepcopy(self.data)
+            updated['profiles'][name]=profile;updated['active']=name
+            updated['display_gpu']=self.gpu_id
+            if updated!=self.data:
+                save(updated);self.data=updated
+            return True
+        except (ValueError,KeyError,TypeError,OSError) as error:
+            message=tr('No se pudieron guardar los ajustes: ')+str(error)
+            self.message.set_text(message)
+            print(message,file=sys.stderr)
+            return False
+
+    def apply_saved_on_startup(self):
+        # Sensor delivery drives this once, including when startup stays in the tray.
+        # A failed operation is not retried automatically.
+        if self.closed or self.hardware_busy(): return
+        if getattr(self,'startup_apply_pending',False):
+            self.startup_apply_pending=False
+            self.startup_rgb_pending=True
+            self.apply_mode()
+        if getattr(self,'startup_rgb_pending',False) and not self.hardware_busy():
+            self.startup_rgb_pending=False
+            self.apply_rgb()
 
     def store(self,*_):
         try:
