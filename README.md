@@ -1,4 +1,4 @@
-# Llano Control - Llano V12 Ultra
+# Llano Control - llano V12 Ultra
 
 Native GTK4 application for the **Llano V12 Ultra** on Linux, developed on PikaOS with Hyprland. Monitor CPU/GPU temperatures, control lighting, and run temperature-based fan profiles from the window or system tray.
 
