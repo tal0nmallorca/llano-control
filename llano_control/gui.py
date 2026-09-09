@@ -443,7 +443,7 @@ class App(Gtk.Application):
             self.sample_started=time.monotonic()
             lightweight=not self.win.get_visible()
             def worker():
-                try: sample=self.monitor.sample(lightweight=lightweight)
+                try: sample=self.monitor.sample(lightweight=lightweight,display_gpu=self.gpu_id)
                 except Exception as e: sample={'error':str(e)}
                 GLib.idle_add(self.receive,sample)
             self.executor.submit(worker)

@@ -72,6 +72,7 @@ class Monitor:
         self.nvidia = shutil.which('nvidia-smi')
         self.nvidia_retry=0
         self.nvidia_error=''
+        self.nvidia_ids=set()
         self.cpu_name='CPU'
         self.package_power=PackagePower(sys)
         self.intel=IntelMetrics(proc)
@@ -89,7 +90,7 @@ class Monitor:
             if vendor in ('0x1002','0x8086'): self.cards.append((card,vendor))
         self.next_discovery=now+30
 
-    def sample(self, lightweight=False):
+    def sample(self, lightweight=False, display_gpu=None):
         errors=[]
         now_monotonic=time.monotonic(); self.discover(now_monotonic)
         cpu={'name':'CPU', 'load':None, 'temp':None, 'freq':None, 'power':None, 'temp_source':'Sin sensor CPU compatible'}
@@ -119,30 +120,34 @@ class Monitor:
             errors.append(self.nvidia_error)
         elif self.nvidia:
             try:
-                query='index,name,temperature.gpu,uuid' if lightweight else 'index,name,utilization.gpu,temperature.gpu,clocks.gr,power.draw,memory.used,memory.total,uuid'
+                nvidia_light=lightweight or (display_gpu is not None and bool(self.nvidia_ids) and display_gpu not in self.nvidia_ids)
+                query='index,name,temperature.gpu,uuid' if nvidia_light else 'index,name,utilization.gpu,temperature.gpu,clocks.gr,power.draw,memory.used,memory.total,uuid'
                 result=subprocess.run([self.nvidia,'--query-gpu='+query,'--format=csv,noheader,nounits'],capture_output=True,text=True,timeout=2)
-                if result.returncode==0: gpus=parse_nvidia_temperature(result.stdout) if lightweight else parse_nvidia(result.stdout)
+                if result.returncode==0:
+                    gpus=parse_nvidia_temperature(result.stdout) if nvidia_light else parse_nvidia(result.stdout)
+                    self.nvidia_ids={g['id'] for g in gpus}
                 else: errors.append('NVIDIA: el controlador no permite consultar la GPU')
             except (OSError,subprocess.TimeoutExpired): errors.append('NVIDIA: consulta no disponible o agotó el tiempo de espera')
         if self.nvidia and errors and not suspended and time.monotonic()>=self.nvidia_retry:
             self.nvidia_error=errors[-1]; self.nvidia_retry=time.monotonic()+60
         for card,vendor in self.cards:
             dev=card/'device'
+            gpu_light=lightweight or (display_gpu is not None and str(dev.resolve())!=display_gpu)
             if vendor=='0x1002':
-                gpus.append(gpu_metrics(card,lightweight))
+                gpus.append(gpu_metrics(card,gpu_light))
                 continue
             gpu={'id':str(dev.resolve()),'name':('AMD' if vendor=='0x1002' else 'Intel')+' · '+card.name,
-                 'load':None if lightweight else numeric(read(dev/'gpu_busy_percent')),'temp':None,'freq':None,'power':None,
+                 'load':None if gpu_light else numeric(read(dev/'gpu_busy_percent')),'temp':None,'freq':None,'power':None,
                  'source':'DRM / hwmon'}
-            used,total=(None,None) if lightweight else (numeric(read(dev/'mem_info_vram_used'),2**30),numeric(read(dev/'mem_info_vram_total'),2**30))
+            used,total=(None,None) if gpu_light else (numeric(read(dev/'mem_info_vram_used'),2**30),numeric(read(dev/'mem_info_vram_total'),2**30))
             gpu['memory']={'used':used,'total':total,'load':used/total*100 if used is not None and total else None}
             for hw in sorted((dev/'hwmon').glob('*')):
                 gpu['temp']=numeric(read(hw/'temp1_input'),1000)
-                if not lightweight:
+                if not gpu_light:
                     gpu['freq']=numeric(read(hw/'freq1_input'),1e6)
                     gpu['power']=numeric(read(hw/'power1_average'),1e6)
             if vendor=='0x8086':
-                intel=self.intel.sample(card,lightweight=lightweight)
+                intel=self.intel.sample(card,lightweight=gpu_light)
                 if gpu['freq'] is None: gpu['freq']=intel['freq']
                 if gpu['load'] is None:
                     gpu['load']=intel['load']; gpu['load_label']=intel['load_label']

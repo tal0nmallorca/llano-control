@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.4
+
+- Collect detailed GPU metrics only for the displayed GPU; retain other GPU temperatures for fan control.
+- Filter DRM descriptors before reading process fdinfo, avoiding unrelated files.
+- Skip redundant translation bookkeeping for unchanged labels.
+- Preserve 1 s visible / 2 s tray sampling, suspended-NVIDIA protection and USB operation timeouts.
+
 ## 0.8.3
 
 - Resolve saved CPU sensor paths after Linux renumbers hwmon devices at reboot.

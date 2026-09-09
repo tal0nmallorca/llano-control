@@ -43,6 +43,8 @@ class ClientMonitor:
                         if time.monotonic()>deadline: break
                         try:
                             # Only retain DRM fdinfo paths, not process command lines.
+                            target=os.readlink(process/'fd'/path.name)
+                            if not target.startswith('/dev/dri/'):continue
                             if 'drm-driver:' in path.read_text(): paths.append(path)
                         except OSError: pass
                 except OSError: continue

@@ -35,7 +35,9 @@ class Label(Gtk.Label):
 
     def _remember(self, method, text):
         if not hasattr(self, '_translations'): self._translations = {}
-        self._translations[method] = source_text(text)
+        source=source_text(text)
+        if method in self._translations and self._translations[method]==source:return
+        self._translations[method] = source
         _widgets.add(self)
 
 def button(widget_type, **kwargs):
