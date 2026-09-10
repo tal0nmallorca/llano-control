@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LLANO Control for Linux – LLANO V12 Ultra Controller</title>
+  <meta name="description" content="Open-source GTK4 controller for LLANO V12 Ultra on Linux. Control RGB lighting and fan curves, monitor CPU/GPU temperatures, and use the system tray.">
+  <link rel="canonical" href="https://tal0nmallorca.github.io/llano-control/">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="drMaLHFiSn5Z5q_9rcw_ZXqYMFuJiE1iSIqXo9ieO4s">
+  <style>
+    :root { color-scheme: light dark; font-family: system-ui, sans-serif; line-height: 1.65; }
+    body { max-width: 850px; margin: auto; padding: 2rem 1.25rem 4rem; }
+    h1 { line-height: 1.15; font-size: clamp(2rem, 6vw, 3.5rem); }
+    h2 { line-height: 1.3; margin-top: 2rem; }
+    a { color: light-dark(#075db4, #8cc8ff); text-underline-offset: .2em; }
+    nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+    img { max-width: 100%; height: auto; border-radius: .5rem; }
+    .note { border-left: 3px solid #888; padding-left: 1rem; }
+    footer { margin-top: 3rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>LLANO Control for Linux</h1>
+    <p>A native GTK4 controller for the <strong>LLANO V12 Ultra</strong> laptop cooler. Control RGB lighting, configure temperature-based fan curves and monitor CPU/GPU telemetry from the application or system tray.</p>
+    <nav aria-label="Project links">
+      <a href="https://github.com/tal0nmallorca/llano-control">Source code and installation</a>
+      <a href="https://github.com/tal0nmallorca/llano-control/releases/tag/v0.8.4">Download v0.8.4</a>
+      <a href="https://github.com/tal0nmallorca/llano-control/blob/main/README.es.md" lang="es">Documentación en español</a>
+    </nav>
+    <h2>RGB, fan curves and hardware monitoring</h2>
+    <ul>
+      <li>RGB effects, preset colors, brightness and animation speed.</li>
+      <li>Fixed fan targets and temperature-based Manual, AI Low/Medium/High and Custom profiles.</li>
+      <li>CPU, GPU or the highest available CPU/GPU temperature as the control source.</li>
+      <li>Intel/AMD CPU and Intel/NVIDIA/AMD GPU telemetry where drivers expose readings.</li>
+      <li>English and Spanish interface, system tray integration and optional login autostart.</li>
+    </ul>
+    <img src="screenshots/llano-control-nvidia-en.png" alt="LLANO Control GTK4 application on Linux with CPU and NVIDIA GPU telemetry" loading="lazy">
+    <h2>Install on Linux</h2>
+    <p>Developed on PikaOS with Hyprland. Requires Python 3.10+, GTK4, PyGObject and Cairo. See the <a href="https://github.com/tal0nmallorca/llano-control#install-on-pikaos--debian--ubuntu">installation instructions for PikaOS, Debian and Ubuntu</a>, including USB device access and tray requirements.</p>
+    <p class="note">Experimental hardware support. Physical Linux validation and calibration at the lowest and highest RPM targets remain incomplete. Displayed RPM targets are estimates, not tachometer readings. This is an independent project, not official LLANO software.</p>
+    <section lang="es">
+      <h2>Controlador LLANO V12 Ultra para Linux</h2>
+      <p>LLANO Control permite configurar la iluminación RGB y las curvas del ventilador, consultar las temperaturas de CPU y GPU y controlar la aplicación desde la bandeja del sistema. Consulta la <a href="https://github.com/tal0nmallorca/llano-control/blob/main/README.es.md">guía de instalación y uso en español</a>.</p>
+    </section>
+  </main>
+  <footer><p>Open-source code under the <a href="https://github.com/tal0nmallorca/llano-control/blob/main/LICENSE">MIT license</a>. Product names and artwork have separate terms; see <a href="https://github.com/tal0nmallorca/llano-control/blob/main/NOTICE.md">NOTICE</a>.</p></footer>
+</body>
+</html>
