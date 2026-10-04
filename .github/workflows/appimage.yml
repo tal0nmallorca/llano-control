@@ -42,4 +42,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.event.release.tag_name }}
           REPO: ${{ github.repository }}
-        run: gh release upload "$RELEASE_TAG" dist/* --repo "$REPO"
+        run: |
+          image=$(find dist -maxdepth 1 -name '*.AppImage' -printf '%f\n')
+          existing=$(gh release view "$RELEASE_TAG" --repo "$REPO" --json assets --jq '.assets[].name')
+          if printf '%s\n' "$existing" | grep -Fxq "$image"; then
+            echo "An AppImage is already attached; preserving the published asset and checksums."
+          else
+            gh release upload "$RELEASE_TAG" dist/* --repo "$REPO"
+          fi
