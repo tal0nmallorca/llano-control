@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Llano Control
+Comment=Llano V12 Ultra fan and RGB controller
+Exec=llano-control
+Icon=llano-control
+Terminal=false
+Categories=Utility;Settings;

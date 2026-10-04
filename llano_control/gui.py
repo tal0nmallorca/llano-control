@@ -717,7 +717,7 @@ class App(Gtk.Application):
         try:
             path=self.auto_path()
             if self.auto.get_active():
-                launcher=Path(__file__).resolve().parent.parent/'llano-control'
+                launcher=Path(os.environ['APPIMAGE']) if os.environ.get('APPIMAGE') else Path(__file__).resolve().parent.parent/'llano-control'
                 # Desktop Exec quoting follows the desktop-entry specification.
                 escaped=str(launcher).replace('\\','\\\\').replace('"','\\"').replace('`','\\`').replace('$','\\$').replace('%','%%')
                 path.parent.mkdir(parents=True,exist_ok=True)

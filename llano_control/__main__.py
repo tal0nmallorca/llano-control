@@ -32,12 +32,16 @@ def main():
     sub = parser.add_subparsers(dest="cmd")
     sub.add_parser("gui")
     sub.add_parser("probe")
+    sub.add_parser("self-test", help="Check bundled GUI dependencies without accessing USB")
     sub.add_parser("telemetry")
     diff = sub.add_parser("diff"); diff.add_argument("before"); diff.add_argument("after")
     cap = sub.add_parser("capture"); cap.add_argument("node"); cap.add_argument("--seconds", type=int, default=30)
     a = parser.parse_args()
     try:
         if a.cmd == "probe": print(json.dumps(inventory(), indent=2, ensure_ascii=False))
+        elif a.cmd == "self-test":
+            from .selftest import run
+            return run()
         elif a.cmd == "telemetry":
             from .telemetry import Monitor
             monitor=Monitor(); monitor.sample(); time.sleep(1)

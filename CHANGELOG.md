@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.5
+
+- Add an x86_64 AppImage bundling Python, GTK4 and GTK3/Ayatana tray dependencies.
+- Point AppImage login autostart to the persistent executable, not the temporary mount.
+- Add a read-only dependency/GUI self-test and a GitHub Actions packaging workflow.
+
 ## 0.8.4
 
 - Collect detailed GPU metrics only for the displayed GPU; retain other GPU temperatures for fan control.

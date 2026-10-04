@@ -12,3 +12,12 @@ intel-test-*/
 .github-auth/
 .env
 .env.*
+
+# AppImage build outputs
+AppDir/
+appimage-build/
+squashfs-root/
+build/
+dist/
+*.AppImage
+*.AppImage.zsync

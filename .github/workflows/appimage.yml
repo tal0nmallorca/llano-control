@@ -1,0 +1,45 @@
+name: AppImage
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build and test tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y binutils curl fakeroot squashfs-tools desktop-file-utils strace patchelf python3-gi python3-cairo python3-gi-cairo python3-yaml gir1.2-gtk-4.0 gir1.2-gtk-3.0 gir1.2-ayatanaappindicator3-0.1 xvfb
+      - name: Unit tests
+        run: xvfb-run -a /usr/bin/python3 -m unittest discover -s tests
+      - name: Build and check bundled dependencies
+        run: packaging/appimage/build.sh
+      - name: Graphical smoke test without USB access
+        run: xvfb-run -a env GDK_BACKEND=x11 LLANO_TEST_DISPLAY=1 APPIMAGE_EXTRACT_AND_RUN=1 dist/*.AppImage self-test
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Llano-Control-AppImage-x86_64
+          path: dist/*
+          if-no-files-found: error
+  release:
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: Llano-Control-AppImage-x86_64
+          path: dist
+      - name: Attach tested AppImage to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          REPO: ${{ github.repository }}
+        run: gh release upload "$RELEASE_TAG" dist/* --repo "$REPO"
