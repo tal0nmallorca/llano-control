@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.8.7
+
+- Power off the cooler on system power-off only, preserving saved profiles.
+- Recognize both poweroff and power-off logind metadata; ignore reboot and logout.
+- Add a best-effort legacy systemd fallback and an explicit power-off CLI for custom init integration.
+- Document compatibility limits and add regression tests (141 tests total).
+- Retain the v0.8.6 Ubuntu Noble AppImage runtime correction.
+
+## 0.8.6
+
+- Fix the AppImage runtime on Ubuntu Noble.
+
 ## 0.8.5
 
 - Add an x86_64 AppImage bundling Python, GTK4 and GTK3/Ayatana tray dependencies.

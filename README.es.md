@@ -4,22 +4,22 @@ Aplicación nativa GTK4 para el **Llano V12 Ultra** en Linux, desarrollada en Pi
 
 [English](README.md) · [Protocolo](docs/PROTOCOL.md) · [Fuentes de temperatura](docs/TEMPERATURAS.md)
 
-**Versión 0.8.5 — soporte de hardware experimental.** Las órdenes HID proceden de capturas de MythCool en Windows. Las pruebas automáticas verifican los bytes y el manejo de estados; faltan validación física completa en Linux y calibración de los extremos de RPM. Las RPM mostradas son objetivos estimados, no lecturas de tacómetro. Proyecto independiente, sin afiliación oficial con Llano.
+**Versión 0.8.7 — soporte de hardware experimental.** Las órdenes HID proceden de capturas de MythCool en Windows. Las pruebas automáticas verifican los bytes y el manejo de estados; faltan validación física completa en Linux y calibración de los extremos de RPM. Las RPM mostradas son objetivos estimados, no lecturas de tacómetro. Proyecto independiente, sin afiliación oficial con Llano.
 
-**[Descargar v0.8.5](https://github.com/tal0nmallorca/llano-control/releases/tag/v0.8.5)** · Guardado automático al cerrar y aplicación de RPM/RGB al iniciar.
+**[Descargar v0.8.7](https://github.com/tal0nmallorca/llano-control/releases/tag/v0.8.7)** · Guardado automático al cerrar y aplicación de RPM/RGB al iniciar.
 
 ## AppImage (x86_64)
 
-Descarga `Llano-Control-0.8.5-x86_64.AppImage` de la release. Incluye Python, GTK4 y GTK3/Ayatana para la bandeja:
+Descarga `Llano-Control-0.8.7-x86_64.AppImage` de la release. Incluye Python, GTK4 y GTK3/Ayatana para la bandeja:
 
 ```sh
-chmod +x Llano-Control-0.8.5-x86_64.AppImage
-./Llano-Control-0.8.5-x86_64.AppImage
+chmod +x Llano-Control-0.8.7-x86_64.AppImage
+./Llano-Control-0.8.7-x86_64.AppImage
 ```
 
 No ejecutes `install.py` para el AppImage. Conserva el archivo en una ruta fija si activas el inicio de sesión automático. Comparte los perfiles con la instalación normal. Cierra la instancia anterior antes de abrirlo: al arrancar aplica las RPM y el RGB guardados.
 
-Necesita el controlador gráfico del sistema y acceso USB mediante la regla udev descrita abajo. Si FUSE no está disponible, usa `APPIMAGE_EXTRACT_AND_RUN=1 ./Llano-Control-0.8.5-x86_64.AppImage`. El paquete es experimental, para Linux x86_64; no incluye controladores NVIDIA ni garantiza compatibilidad con todas las distribuciones.
+Necesita el controlador gráfico del sistema y acceso USB mediante la regla udev descrita abajo. Si FUSE no está disponible, usa `APPIMAGE_EXTRACT_AND_RUN=1 ./Llano-Control-0.8.7-x86_64.AppImage`. El paquete es experimental, para Linux x86_64; no incluye controladores NVIDIA ni garantiza compatibilidad con todas las distribuciones.
 
 ## Capturas de la aplicación
 
@@ -99,6 +99,10 @@ sudo apt install python3-yaml
 python3 -m unittest discover -s tests -v
 ```
 
-Hay 129 pruebas sin escrituras USB reales. Se incluyen datos HID mínimos para comparar mensajes; se excluyen capturas completas, registros del equipo y copias de Bottles. Las herramientas opcionales de captura requieren tshark/dumpcap; la prueba experimental de Soda requiere PyYAML. [Capturas](docs/CAPTURE.md) · [Contribuir](CONTRIBUTING.md).
+Hay 141 pruebas sin escrituras USB reales. Se incluyen datos HID mínimos para comparar mensajes; se excluyen capturas completas, registros del equipo y copias de Bottles. Las herramientas opcionales de captura requieren tshark/dumpcap; la prueba experimental de Soda requiere PyYAML. [Capturas](docs/CAPTURE.md) · [Contribuir](CONTRIBUTING.md).
 
 Código bajo licencia [MIT](LICENSE). La imagen del producto y las marcas quedan excluidas de esa licencia: [NOTICE](NOTICE.md).
+
+### Automatic cooler power-off / Apagado automático
+
+See [compatibility and shutdown integration](docs/automatic-shutdown.md). Supports modern logind and a best-effort legacy systemd fallback. Reboot and logout do not turn the cooler off. Other init systems require explicit integration; not all distributions have been physically tested.

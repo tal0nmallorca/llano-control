@@ -17,6 +17,7 @@ from .telemetry import Monitor
 from .fan import FanController
 from .thermal import control_temperature, resolve_sensor_path
 from .power_position import load_position, save_position
+from .session_end import SessionEnd, power_off
 from . import ui_i18n
 from .i18n import t as tr, LANGUAGE, save_language, set_language
 
@@ -61,6 +62,9 @@ class App(Gtk.Application):
         self.fan_explicit=False;self.pending_hardware_action=None
         self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix="llano-sensors")
         self.timer=None; self.last_usb_scan=0
+        self.session_ending=False
+        self.session_end=SessionEnd(self.end_session)
+        self.session_end.start()
         self.win=Gtk.ApplicationWindow(application=self,title='Llano Control · V12 Ultra')
         self.win.set_default_size(1100,820)
         self.win.connect('close-request',self.on_close)
@@ -576,12 +580,27 @@ class App(Gtk.Application):
         self.hide_to_tray()
         return True
 
+    def end_session(self):
+        self.session_ending=True
+        self.quit()
+
     def cleanup_tray(self,*_):
         App.persist_current(self)
         self.closed=True
         if getattr(self,"fan_controller",None):self.fan_controller.active=False
         if getattr(self,'timer',None): GLib.source_remove(self.timer)
+        if getattr(self,'session_ending',False):
+            deadline=time.monotonic()+3.5
+            try:
+                # Drain the single USB/sensor worker before the final off report;
+                # no earlier queued Apply may run after it and restart the fan.
+                if hasattr(self,'executor'):
+                    self.executor.submit(lambda:None).result(timeout=2)
+                power_off(timeout=max(.05,deadline-time.monotonic()))
+            except (OSError,subprocess.TimeoutExpired,TimeoutError,RuntimeError) as error:
+                print('Llano automatic power off: '+str(error),file=sys.stderr)
         if hasattr(self,'executor'): self.executor.shutdown(wait=False,cancel_futures=True)
+        if getattr(self,'session_end',None): self.session_end.close()
         if getattr(self,'startup_timer',None): GLib.source_remove(self.startup_timer)
         tray=getattr(self,'tray',None)
         if tray is not None:
