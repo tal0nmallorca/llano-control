@@ -35,11 +35,18 @@ AppDir:
     exclude:
       - libgl1-mesa-dri
   runtime:
+    # appimage-builder 1.1.0's ELF rewriter corrupts Noble's libc.
+    preserve:
+      - usr/lib/x86_64-linux-gnu/libc.so.6
     env:
       PYTHONHOME: '${APPDIR}/usr'
       PYTHONPATH: '${APPDIR}/usr/share/llano-control:${APPDIR}/usr/lib/python3/dist-packages'
       PYTHONNOUSERSITE: '1'
       GSK_RENDERER: cairo
+  # Noble uses usr/lib64, while patched ELF interpreters use lib64.
+  after_runtime:
+    - mkdir -p AppDir/runtime/compat/lib64
+    - ln -s ../usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 AppDir/runtime/compat/lib64/ld-linux-x86-64.so.2
   files:
     exclude:
       - usr/share/man
