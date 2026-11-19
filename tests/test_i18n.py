@@ -1,4 +1,6 @@
+import io
 import json
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch, Mock
@@ -10,6 +12,34 @@ class LanguageTests(unittest.TestCase):
     def test_english_composed_readings(self):
         self.assertEqual(i18n.t('Frecuencia 1200 MHz  ·  Potencia SoC 12.3 W','en'), 'Frequency 1200 MHz  ·  Power SoC 12.3 W')
         self.assertEqual(i18n.t('Previsualización: 1300 RPM objetivo · temperatura 55 °C · ninguna escritura USB','en'), 'Preview: 1300 RPM target · temperature 55 °C · no USB writes')
+    def test_runtime_and_cli_error_catalog(self):
+        cases = {
+            'Fuente de temperatura inválida': 'Invalid temperature source',
+            'GPU inválida': 'Invalid GPU',
+            'Modo manual inválido': 'Invalid manual mode',
+            'Unidades RGB desconocidas': 'Unknown RGB units',
+            'Protocolo sin verificar: no se ha enviado ningún comando USB/HID': 'Unverified protocol: no USB/HID command was sent',
+            'Solo se permite leer un hidraw candidato 374a:b101 enumerado': 'Only an enumerated 374a:b101 candidate hidraw may be read',
+            'No es dispositivo de caracteres': 'Not a character device',
+            'La identidad cambió durante la apertura': 'Identity changed during open',
+            'Duración permitida: 1–300 segundos': 'Allowed duration: 1–300 seconds',
+            'Llano Control: RGB, interfaz y diagnóstico': 'Llano Control: RGB, interface and diagnostics',
+        }
+        for source, expected in cases.items():
+            self.assertEqual(i18n.t(source, 'en'), expected)
+    def test_bilingual_protocol_errors_render_english_only(self):
+        self.assertEqual(i18n.t('No se recuperó el control del PC / PC control was not confirmed', 'en'), 'PC control was not confirmed')
+        self.assertEqual(i18n.t('El estado del ventilador cambió durante la operación / Fan state changed during operation', 'en'), 'Fan state changed during operation')
+        self.assertEqual(i18n.t('Conecta un único Llano compatible / Connect one compatible Llano', 'en'), 'Connect one compatible Llano')
+    def test_cli_translates_duration_error(self):
+        from llano_control import __main__ as cli
+        with patch.object(sys, 'argv', ['llano-control', 'capture', '/dev/null', '--seconds', '0']), \
+             patch.object(i18n, 'LANGUAGE', 'en'), \
+             patch('sys.stderr', new_callable=io.StringIO) as stderr:
+            self.assertEqual(cli.main(), 1)
+        output = stderr.getvalue()
+        self.assertIn('Allowed duration: 1–300 seconds', output)
+        self.assertNotIn('Duración', output)
     def test_catalog_and_hardware_identifiers(self):
         for source, target in i18n.EN.items():
             self.assertEqual(i18n.t(source,'en'), target)
