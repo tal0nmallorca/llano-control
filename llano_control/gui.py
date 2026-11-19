@@ -748,6 +748,6 @@ def run():
     from gi.repository import Gdk
     Gtk.init()
     if Gdk.Display.get_default() is None:
-        print('No hay sesión gráfica disponible. Ejecuta la GUI dentro de Wayland/X11.', file=sys.stderr)
+        print(tr('No hay sesión gráfica disponible. Ejecuta la GUI dentro de Wayland/X11.'), file=sys.stderr)
         return 1
     return App().run([sys.argv[0]])

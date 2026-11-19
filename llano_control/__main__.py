@@ -7,6 +7,7 @@ import subprocess
 import sys
 import time
 from .devices import inventory, difference
+from .i18n import t as tr
 
 def capture(node, seconds):
     import stat
@@ -29,7 +30,7 @@ def capture(node, seconds):
     finally: os.close(fd)
 
 def main():
-    parser = argparse.ArgumentParser(description="Llano Control: RGB, interfaz y diagnóstico")
+    parser = argparse.ArgumentParser(description=tr("Llano Control: RGB, interfaz y diagnóstico"))
     sub = parser.add_subparsers(dest="cmd")
     sub.add_parser("gui")
     sub.add_parser("probe")
@@ -62,7 +63,7 @@ def main():
             from .gui import run
             return run()
     except (OSError, ValueError, KeyError, TypeError) as e:
-        print(f"Error: {e}", file=sys.stderr); return 1
+        print(f"Error: {tr(str(e))}", file=sys.stderr); return 1
     return 0
 
 if __name__ == "__main__": sys.exit(main())

@@ -211,6 +211,39 @@ EN.update({'Encender Llano': 'Power on Llano', 'Apagar Llano': 'Power off Llano'
 EN.update({'Encender/apagar Llano':'Toggle Llano power'})
 EN.update({'Apagado':'Off','Encendido':'On','Estado confirmado; no se pudo guardar la posición.':'State confirmed; could not save the position.','Posición recordada; estado del dispositivo sin confirmar.':'Remembered position; device state not confirmed.'})
 EN.update({'Temperatura para las RPM': 'Temperature for RPM control', 'GPU de control': 'GPU for control', 'GPU más caliente disponible': 'Hottest available GPU', 'CPU + GPU usa la mayor temperatura disponible.': 'CPU + GPU uses the highest available temperature.', 'Manual según temperatura · RPM como máximo': 'Temperature-based Manual · RPM as maximum', 'GPU no disponible': 'GPU unavailable', 'CPU + GPU · máxima': 'CPU + GPU · maximum', 'CPU · GPU sin temperatura': 'CPU · GPU temperature unavailable', 'GPU · CPU sin temperatura': 'GPU · CPU temperature unavailable'})
+EN.update({
+    'Fuente de temperatura inválida': 'Invalid temperature source',
+    'GPU inválida': 'Invalid GPU',
+    'Modo manual inválido': 'Invalid manual mode',
+    'Unidades RGB desconocidas': 'Unknown RGB units',
+    'Protocolo sin verificar: no se ha enviado ningún comando USB/HID': 'Unverified protocol: no USB/HID command was sent',
+    'Llano Control: RGB, interfaz y diagnóstico': 'Llano Control: RGB, interface and diagnostics',
+    'Solo se permite leer un hidraw candidato 374a:b101 enumerado': 'Only an enumerated 374a:b101 candidate hidraw may be read',
+    'No es dispositivo de caracteres': 'Not a character device',
+    'La identidad cambió durante la apertura': 'Identity changed during open',
+    'Duración permitida: 1–300 segundos': 'Allowed duration: 1–300 seconds',
+})
+EN.update({
+    'Porcentaje fuera de rango / Percentage out of range': 'Percentage out of range',
+    'Estado de control inválido / Invalid control state': 'Invalid control state',
+    'No se recuperó el control del PC / PC control was not confirmed': 'PC control was not confirmed',
+    'Consigna no confirmada o RGB cambió / Target not confirmed or RGB changed': 'Target not confirmed or RGB changed',
+    'Estado de encendido inválido / Invalid power state': 'Invalid power state',
+    'Encendido no confirmado / Power state not confirmed': 'Power state not confirmed',
+    'Cambió otro ajuste durante la operación / Another setting changed during operation': 'Another setting changed during operation',
+    'Sin temperatura seleccionada: control pausado; se conserva la última consigna. / No selected temperature: control paused; last target retained.': 'No selected temperature: control paused; last target retained.',
+    'Respuesta HID inválida / Invalid HID response': 'Invalid HID response',
+    'Estado HID desconocido / Unknown HID state': 'Unknown HID state',
+    'Ajuste RGB no compatible / Unsupported RGB setting': 'Unsupported RGB setting',
+    'Valor RGB fuera de rango / RGB value out of range': 'RGB value out of range',
+    'Conecta un único Llano compatible / Connect one compatible Llano': 'Connect one compatible Llano',
+    'Identidad HID distinta / HID identity changed': 'HID identity changed',
+    'Descriptor HID distinto / HID descriptor changed': 'HID descriptor changed',
+    'Envío HID incompleto / Short HID send': 'Short HID send',
+    'Lectura HID incompleta / Short HID read': 'Short HID read',
+    'RGB no confirmado por el dispositivo / RGB not confirmed by device': 'RGB not confirmed by device',
+    'El estado del ventilador cambió durante la operación / Fan state changed during operation': 'Fan state changed during operation',
+})
 _PATTERN = re.compile('|'.join(re.escape(key) for key in sorted(EN, key=len, reverse=True)))
 
 def settings_path():
